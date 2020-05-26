@@ -3,7 +3,7 @@ microservice.contextPath: '/api/v1/myRetail'
 
 spring:
   application:
-     name: my-retail-sservice  # Service registers under this name
+    name: my-retail-service  # Service registers under this name
   mvc:
     dispatch-trace-request: true
   data:
@@ -15,3 +15,11 @@ spring:
       password      : cassandra
       ssl           : false
       consistency-level: LOCAL_QUORUM
+
+
+product:
+  rest:
+    totalconnections: 10
+    readtimeout: 3000
+    connectionTimeout: 4000
+  getProductsUrl: https://redsky.target.com/v2/pdp/tcin/13860428?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics

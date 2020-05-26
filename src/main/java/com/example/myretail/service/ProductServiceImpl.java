@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getProductDetails(String productId) {
         log.debug("Inside Service: getProductDetails");
-        productRepository.getProductDetails(productId);
+        List<Product> productList = productRepository.getProductDetails(productId);
 
-        return null;
+        return productList;
     }
 }

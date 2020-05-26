@@ -17,8 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class Product {
-    private String id;
-    private String name;
-    private Price current_price;
+public class ProductResponse {
+
+    Product product;
 }
