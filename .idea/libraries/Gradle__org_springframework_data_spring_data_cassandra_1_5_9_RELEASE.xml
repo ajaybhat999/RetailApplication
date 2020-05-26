@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.springframework.data:spring-data-cassandra:1.5.9.RELEASE">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-cassandra/1.5.9.RELEASE/3927fbcb8a7b73c3c320a8149d189179a43b47ae/spring-data-cassandra-1.5.9.RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-cassandra/1.5.9.RELEASE/3a9f8d64a0fc71f09a5a2662ded8886a86f62d8c/spring-data-cassandra-1.5.9.RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

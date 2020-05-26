@@ -1,0 +1,17 @@
+server.port: 8045
+microservice.contextPath: '/api/v1/myRetail'
+
+spring:
+  application:
+     name: my-retail-sservice  # Service registers under this name
+  mvc:
+    dispatch-trace-request: true
+  data:
+    cassandra: # Cassandra properties
+      contact-points: localhost
+      port          : 9042
+      keyspace-name : my_retail
+      username      : cassandra
+      password      : cassandra
+      ssl           : false
+      consistency-level: LOCAL_QUORUM
