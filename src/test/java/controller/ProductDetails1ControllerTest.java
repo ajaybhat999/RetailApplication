@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import com.example.myretail.controller.ProductController;
 import com.example.myretail.model.Price;
-import com.example.myretail.model.Product;
+import com.example.myretail.model.ProductDetails1;
 import com.example.myretail.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -26,7 +26,7 @@ import java.util.List;
  */
 @Slf4j
 @RunWith(MockitoJUnitRunner.class)
-public class ProductControllerTest {
+public class ProductDetails1ControllerTest {
 
 
     @InjectMocks
@@ -38,20 +38,21 @@ public class ProductControllerTest {
 
     @Test
     public void shouldGetListOfBrandsOnValidProductId() {
-        List<Product> productList = getMockProductList();
-        when(productService.getProductDetails(anyString())).thenReturn(productList);
+        List<ProductDetails1> productDetails1List = getMockProductList();
+        when(productService.getProductDetails(anyString())).thenReturn(productDetails1List);
         ResponseEntity responseEntity = productController.getProductDetails("1234567");
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
     }
 
-    private List<Product> getMockProductList() {
-        List<Product> productList = new ArrayList<>();
-        Product product = Product.builder().id("1234567").name("Test Product").current_price(Price.builder().value
+    private List<ProductDetails1> getMockProductList() {
+        List<ProductDetails1> productDetails1List = new ArrayList<>();
+        ProductDetails1 productDetails1 = ProductDetails1
+                .builder().id("1234567").name("Test ProductDetails1").current_price(Price.builder().value
                 ("10").currency_code("USD").build()).build();
-        productList.add(product);
-        return productList;
+        productDetails1List.add(productDetails1);
+        return productDetails1List;
     }
 
 

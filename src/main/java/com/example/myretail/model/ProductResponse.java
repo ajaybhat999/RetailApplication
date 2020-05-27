@@ -3,13 +3,12 @@ package com.example.myretail.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Created by akrish10 on 5/26/20.
+ * Created by akrish10 on 5/27/20.
  */
 @Setter
 @Getter
@@ -19,5 +18,9 @@ import lombok.Setter;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ProductResponse {
 
-    Product product;
+    String id;
+
+    String name;
+
+    Price current_price;
 }

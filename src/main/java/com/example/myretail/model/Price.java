@@ -3,12 +3,13 @@ package com.example.myretail.model;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * Created by akrish10 on 5/26/20.
  */
 @Data
-@Builder
+@NoArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class Price {
     private String value;

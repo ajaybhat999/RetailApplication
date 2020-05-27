@@ -1,6 +1,7 @@
 package com.example.myretail.controller;
 
-import com.example.myretail.model.Product;
+import com.example.myretail.model.ProductDetails1;
+import com.example.myretail.model.ProductResponse;
 import com.example.myretail.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +26,10 @@ public class ProductController {
     ProductService productService;
 
     @GetMapping("/product/{productId}")
-    public ResponseEntity<Product> getProductDetails(@PathVariable(value = "productId") String productId) {
-        log.debug("Inside Product controller: getProduct()");
-        List<Product> productList = productService.getProductDetails(productId);
-        return new ResponseEntity(productList, HttpStatus.OK);
-
+    public ResponseEntity<ProductDetails1> getProductDetails(@PathVariable(value = "productId") String productId) {
+        log.debug("Inside ProductDetails1 controller: getProduct()");
+        ProductResponse productResponse = productService.getProductDetails(productId);
+        return new ResponseEntity(productResponse, HttpStatus.OK);
 
     }
 }
