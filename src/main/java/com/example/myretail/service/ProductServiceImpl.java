@@ -26,16 +26,20 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse getProductDetails(String productId) {
         log.debug("Inside Service: getProductDetails");
-        ProductApiResponse productApiResponseFromApi = productRepository.getProductDetails(productId);
+        ProductApiResponse productResponseFromApi = productRepository.getProductDetails(productId);
+        String productNumber = productResponseFromApi.getProduct().getItem().getTcin();
+        String productDescription = productResponseFromApi.getProduct().getItem().getProduct_description()
+                .getTitle();
         PriceMapper priceMapper = priceRepository.getPriceDetails(productId);
         ProductResponse productResponse = new ProductResponse();
-        //to-do - see why serialization is not happening.
-        productResponse.setId(productId);
-        productResponse.setName("Test");
-        Price price = new Price();
-        price.setValue(priceMapper.getPrice());
-        price.setCurrency_code(priceMapper.getCurrency());
-        productResponse.setCurrent_price(price);
+        productResponse.setId(productNumber);
+        productResponse.setName(productDescription);
+        if (null != priceMapper) {
+            Price price = new Price();
+            price.setValue(priceMapper.getPrice());
+            price.setCurrency_code(priceMapper.getCurrency());
+            productResponse.setCurrent_price(price);
+        }
         return productResponse;
     }
 }

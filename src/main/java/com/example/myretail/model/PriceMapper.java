@@ -1,5 +1,6 @@
 package com.example.myretail.model;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cassandra.core.PrimaryKeyType;
@@ -13,6 +14,7 @@ import org.springframework.data.cassandra.mapping.Table;
 @Table("price")
 @Getter
 @Setter
+@Builder
 public class PriceMapper {
     @PrimaryKeyColumn(name = "productid", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
     String productid;
