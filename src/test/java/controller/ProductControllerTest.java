@@ -8,6 +8,7 @@ import static org.mockito.Mockito.when;
 import com.example.myretail.controller.ProductController;
 import com.example.myretail.model.Price;
 import com.example.myretail.model.Product;
+import com.example.myretail.model.ProductResponse;
 import com.example.myretail.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -37,8 +38,8 @@ public class ProductControllerTest {
 
 
     @Test
-    public void shouldGetListOfBrandsOnValidProductId() {
-        List<Product> productList = getMockProductList();
+    public void shouldGetListOfProductPricesOnValidProductId() {
+        ProductResponse productList = getMockProductResponse();
         when(productService.getProductDetails(anyString())).thenReturn(productList);
         ResponseEntity responseEntity = productController.getProductDetails("1234567");
         assertNotNull(responseEntity);
@@ -46,13 +47,13 @@ public class ProductControllerTest {
         assertNotNull(responseEntity.getBody());
     }
 
-    private List<Product> getMockProductList() {
-        List<Product> productList = new ArrayList<>();
-        Product product = Product
-                .builder().id("1234567").name("Test Product").current_price(Price.builder().value
-                ("10").currency_code("USD").build()).build();
-        productList.add(product);
-        return productList;
+    private ProductResponse getMockProductResponse() {
+        Price price = new Price();
+        price.setCurrency_code("USD");
+        price.setValue("12");
+        ProductResponse product = ProductResponse
+                .builder().id("1234567").name("Test Product").current_price(price).build();
+        return product;
     }
 
 

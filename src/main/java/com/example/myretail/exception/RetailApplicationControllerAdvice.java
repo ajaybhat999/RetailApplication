@@ -15,14 +15,17 @@ import org.springframework.web.client.HttpClientErrorException;
 public class RetailApplicationControllerAdvice {
 
 
-    @ExceptionHandler(HttpClientErrorException.class)
+    @ExceptionHandler(RetailApplicationException.class)
     public ResponseEntity<ErrorResponse> httpClientErrorExceptionHandler(
-            HttpClientErrorException ex) {
+            RetailApplicationException ex) {
         log.error("HttpClientErrorException occurred while calling rest service :", ex);
         ErrorResponse response = new ErrorResponse();
-        response.setErrorCode(ex.getStatusCode().toString());
-        response.setErrorMessage(ex.getResponseBodyAsString());
-        return new ResponseEntity<ErrorResponse>(response, ex.getStatusCode());
+        response.setErrorCode(String.valueOf(ex.getResponseStatusCode()));
+        response.setErrorMessage(ex.getErrorMessage());
+        return new ResponseEntity<ErrorResponse>(response, ex.getHttpStatus());
     }
+
+
+
 
 }

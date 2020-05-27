@@ -51,16 +51,16 @@ public class ProductRepositoryImpl implements ProductRepository {
                 return productApiResponse;
             }
         } catch (HttpClientErrorException ex) {
-            if (response.getStatusCode().is5xxServerError()) {
+            if (ex.getStatusCode().is5xxServerError()) {
                 log.error("Internal server error");
-                throw new RetailApplicationException(ex.getMessage(),response.getStatusCode().value());
-            } else if (response.getStatusCode().is4xxClientError()) {
+                throw new RetailApplicationException(ex.getMessage(),ex.getStatusCode().toString(),ex.getStatusCode());
+            } else if (ex.getStatusCode().is4xxClientError()) {
                 log.error("Internal server error");
-                throw new RetailApplicationException(ex.getMessage(),response.getStatusCode().value());
+                throw new RetailApplicationException(ex.getMessage(),ex.getStatusCode().toString(),ex.getStatusCode());
             }
         } catch (Exception ex) {
             log.error("Generic exception occurred");
-            throw new RetailApplicationException(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value());
+            throw new RetailApplicationException(ex.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.toString(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return null;
     }
