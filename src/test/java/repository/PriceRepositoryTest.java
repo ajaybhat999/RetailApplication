@@ -3,6 +3,7 @@ package repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
 
@@ -40,4 +41,13 @@ public class PriceRepositoryTest {
         assertEquals(resultPriceMapper.getCurrency(),"USD");
         assertEquals(resultPriceMapper.getProductid(),"1234567");
     }
+
+    @Test
+    public void shouldNotFetchPriceIfPriceNotAvailable(){
+        when(cassandraOperations.selectOne(any(Select.class), any()))
+                .thenReturn(null);
+        PriceMapper resultPriceMapper = priceRepository.getPriceDetails("1234567");
+        assertNull(resultPriceMapper);
+    }
+
 }
