@@ -5,8 +5,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 
+import com.example.myretail.exception.ErrorResponse;
+import com.example.myretail.exception.RetailApplicationException;
 import com.example.myretail.model.ItemDetails;
 import com.example.myretail.model.ProductApiResponse;
 import com.example.myretail.model.ProductDescription;
@@ -23,7 +26,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 
 /**
  * Created by akrish10 on 5/28/20.
@@ -58,6 +64,27 @@ public class ProductRepositoryTest {
         assertEquals(productApiResponse.getProduct().getItem().getTcin(),"1234567");
         assertEquals(productApiResponse.getProduct().getItem().getProduct_description().getTitle(),"test title");
     }
+
+
+    @Test(expected = RetailApplicationException.class)
+    public void shouldThrowAuthoringExceptionWhenHttpClientErrorOnGetProductAttributes()
+            throws RetailApplicationException, IOException {
+        ResponseEntity<String> mockResponse = mock(ResponseEntity.class);
+        HttpClientErrorException mockHttpClientErrorException =
+                mock(HttpClientErrorException.class);
+        doReturn(HttpStatus.INTERNAL_SERVER_ERROR).when(mockResponse).getStatusCode();
+        doReturn(HttpStatus.INTERNAL_SERVER_ERROR).
+                when(mockHttpClientErrorException).getStatusCode();
+        doReturn("").when(mockHttpClientErrorException).getResponseBodyAsString();
+        ErrorResponse responseObject = new ErrorResponse("UNKNOWN", "UN known");
+        doThrow(mockHttpClientErrorException).when(productRestTemplate)
+                .exchange(any(String.class), eq(HttpMethod.GET),
+                        eq(null),
+                        any(ParameterizedTypeReference.class));
+        productRepository.getProductDetails("1234567");
+    }
+
+
 
     private Object getMockProductApiResponse() {
         return ProductApiResponse.builder().product(getMockProductDetails()).build();
