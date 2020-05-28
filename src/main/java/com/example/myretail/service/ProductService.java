@@ -9,4 +9,7 @@ public interface ProductService {
 
     ProductResponse getProductDetails(String productId);
 
+    void updateProductPrice(ProductResponse productRequest);
+
+    void createProductPrice(ProductResponse productRequest);
 }

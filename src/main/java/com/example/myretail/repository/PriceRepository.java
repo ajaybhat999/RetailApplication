@@ -8,4 +8,6 @@ import com.example.myretail.model.PriceMapper;
 public interface PriceRepository {
 
     PriceMapper getPriceDetails(String productId);
+
+    void updateProductDetails(PriceMapper productId);
 }

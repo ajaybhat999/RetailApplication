@@ -30,4 +30,9 @@ public class PriceRepositoryImpl implements PriceRepository {
         PriceMapper priceMapper = cassandraOperations.selectOne(stmt, PriceMapper.class);
         return priceMapper;
     }
+
+    @Override
+    public void updateProductDetails(PriceMapper priceMapper) {
+        cassandraOperations.insert(priceMapper);
+    }
 }
