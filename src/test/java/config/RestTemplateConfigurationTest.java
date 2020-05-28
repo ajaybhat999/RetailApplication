@@ -3,7 +3,6 @@ package config;
 import static org.junit.Assert.assertNotNull;
 
 import com.example.myretail.config.RestTemplateConfiguration;
-import com.example.myretail.controller.ProductController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

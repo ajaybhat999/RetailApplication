@@ -1,15 +1,15 @@
 package com.example.myretail.service;
 
-import com.example.myretail.model.ProductResponse;
+import com.example.myretail.model.Products;
 
 /**
  * Created by akrish10 on 5/26/20.
  */
 public interface ProductService {
 
-    ProductResponse getProductDetails(String productId);
+    Products getProductDetails(String productId);
 
-    void updateProductPrice(ProductResponse productRequest);
+    void updateProductPrice(Products productRequest);
 
-    void createProductPrice(ProductResponse productRequest);
+    void createProductPrice(Products productRequest);
 }

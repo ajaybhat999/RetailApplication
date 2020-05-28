@@ -5,10 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
-import com.example.myretail.controller.ProductController;
+import com.example.myretail.controller.ProductsController;
 import com.example.myretail.model.Price;
-import com.example.myretail.model.Product;
-import com.example.myretail.model.ProductResponse;
+import com.example.myretail.model.Products;
 import com.example.myretail.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -19,19 +18,16 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by akrish10 on 5/26/20.
  */
 @Slf4j
 @RunWith(MockitoJUnitRunner.class)
-public class ProductControllerTest {
+public class ProductsControllerTest {
 
 
     @InjectMocks
-    ProductController productController;
+    ProductsController productsController;
 
     @Mock
     private ProductService productService;
@@ -39,19 +35,19 @@ public class ProductControllerTest {
 
     @Test
     public void shouldGetListOfProductPricesOnValidProductId() {
-        ProductResponse productList = getMockProductResponse();
+        Products productList = getMockProductResponse();
         when(productService.getProductDetails(anyString())).thenReturn(productList);
-        ResponseEntity responseEntity = productController.getProductDetails("1234567");
+        ResponseEntity responseEntity = productsController.getProductDetails("1234567");
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
     }
 
-    private ProductResponse getMockProductResponse() {
+    private Products getMockProductResponse() {
         Price price = new Price();
         price.setCurrency_code("USD");
         price.setValue("12");
-        ProductResponse product = ProductResponse
+        Products product = Products
                 .builder().id("1234567").name("Test Product").current_price(price).build();
         return product;
     }

@@ -1,13 +1,12 @@
 package com.example.myretail.controller;
 
 import com.example.myretail.model.Product;
-import com.example.myretail.model.ProductResponse;
+import com.example.myretail.model.Products;
 import com.example.myretail.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,30 +20,30 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Slf4j
 @RestController
-@RequestMapping("${microservice.contextPath}/")
-public class ProductController {
+@RequestMapping("${microservice.contextPath}/product")
+public class ProductsController {
 
     @Autowired
     ProductService productService;
 
-    @GetMapping("/product/{productId}")
+    @GetMapping("/{productId}")
     public ResponseEntity<Product> getProductDetails(@PathVariable(value = "productId") String productId) {
         log.debug("Inside Product controller: getProduct()");
-        ProductResponse productResponse = productService.getProductDetails(productId);
-        return new ResponseEntity(productResponse, HttpStatus.OK);
+        Products products = productService.getProductDetails(productId);
+        return new ResponseEntity(products, HttpStatus.OK);
     }
 
-    @PutMapping("/product")
-    public ResponseEntity updateProductDetails(@RequestBody ProductResponse productRequest){
+    @PutMapping()
+    public ResponseEntity updateProductDetails(@RequestBody Products productRequest){
         log.debug("Inside Product Controller: update product()");
         productService.updateProductPrice(productRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/product")
-    public ResponseEntity createProductDetails(@RequestBody ProductResponse productRequest){
+    @PostMapping()
+    public ResponseEntity createProductDetails(@RequestBody Products productRequest){
         log.debug("Inside Product Controller: create product price()");
         productService.createProductPrice(productRequest);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
 
 import com.datastax.driver.core.querybuilder.Select;
-import com.example.myretail.model.PriceMapper;
+import com.example.myretail.dto.PriceMapper;
 import com.example.myretail.repository.PriceRepositoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;

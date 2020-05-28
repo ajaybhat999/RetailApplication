@@ -2,9 +2,9 @@ package com.example.myretail.service;
 
 import com.example.myretail.exception.RetailApplicationException;
 import com.example.myretail.model.Price;
-import com.example.myretail.model.PriceMapper;
+import com.example.myretail.dto.PriceMapper;
 import com.example.myretail.model.ProductApiResponse;
-import com.example.myretail.model.ProductResponse;
+import com.example.myretail.model.Products;
 import com.example.myretail.repository.PriceRepository;
 import com.example.myretail.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -26,27 +26,27 @@ public class ProductServiceImpl implements ProductService {
     PriceRepository priceRepository;
 
     @Override
-    public ProductResponse getProductDetails(String productId) {
+    public Products getProductDetails(String productId) {
         log.debug("Inside Service: getProductDetails");
         ProductApiResponse productResponseFromApi = productRepository.getProductDetails(productId);
         String productNumber = productResponseFromApi.getProduct().getItem().getTcin();
         String productDescription = productResponseFromApi.getProduct().getItem().getProduct_description()
                 .getTitle();
         PriceMapper priceMapper = priceRepository.getPriceDetails(productId);
-        ProductResponse productResponse = new ProductResponse();
-        productResponse.setId(productNumber);
-        productResponse.setName(productDescription);
+        Products products = new Products();
+        products.setId(productNumber);
+        products.setName(productDescription);
         if (null != priceMapper) {
             Price price = new Price();
             price.setValue(priceMapper.getPrice());
             price.setCurrency_code(priceMapper.getCurrency());
-            productResponse.setCurrent_price(price);
+            products.setCurrent_price(price);
         }
-        return productResponse;
+        return products;
     }
 
     @Override
-    public void updateProductPrice(ProductResponse productRequest) {
+    public void updateProductPrice(Products productRequest) {
         String productId = productRequest.getId();
         log.debug("Updating price for product ID {}",productId);
         PriceMapper priceMapper = priceRepository.getPriceDetails(productId);
@@ -60,13 +60,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void createProductPrice(ProductResponse productRequest) {
+    public void createProductPrice(Products productRequest) {
         priceRepository.updateProductDetails(getPriceMapperFromRequest(productRequest));
     }
 
-    private PriceMapper getPriceMapperFromRequest(ProductResponse productResponse) {
-        PriceMapper priceMapper = PriceMapper.builder().productid(productResponse.getId()).currency(productResponse
-                .getCurrent_price().getCurrency_code()).price(productResponse.getCurrent_price().getValue()).build();
+    private PriceMapper getPriceMapperFromRequest(Products products) {
+        PriceMapper priceMapper = PriceMapper.builder().productid(products.getId()).currency(products
+                .getCurrent_price().getCurrency_code()).price(products.getCurrent_price().getValue()).build();
         return priceMapper;
     }
 

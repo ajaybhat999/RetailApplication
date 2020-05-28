@@ -29,9 +29,9 @@ public class RestTemplateConfiguration {
     private int connectionTimeout;
 
     /**
-     * graphRestTemplate.
+     * productRestTemplate.
      *
-     * @return graphRestTemplate
+     * @return productRestTemplate
      */
     @Bean
     public RestTemplate productRestTemplate() {

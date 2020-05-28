@@ -1,6 +1,6 @@
 package com.example.myretail.repository;
 
-import com.example.myretail.model.PriceMapper;
+import com.example.myretail.dto.PriceMapper;
 
 /**
  * Created by akrish10 on 5/26/20.

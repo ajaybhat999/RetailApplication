@@ -1,4 +1,4 @@
-package com.example.myretail.model;
+package com.example.myretail.dto;
 
 import lombok.Builder;
 import lombok.Getter;

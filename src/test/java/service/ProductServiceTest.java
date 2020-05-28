@@ -7,11 +7,11 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.example.myretail.model.ItemDetails;
-import com.example.myretail.model.PriceMapper;
+import com.example.myretail.dto.PriceMapper;
 import com.example.myretail.model.ProductApiResponse;
 import com.example.myretail.model.ProductDescription;
 import com.example.myretail.model.ProductDetails;
-import com.example.myretail.model.ProductResponse;
+import com.example.myretail.model.Products;
 import com.example.myretail.repository.PriceRepository;
 import com.example.myretail.repository.ProductRepository;
 import com.example.myretail.service.ProductServiceImpl;
@@ -43,23 +43,23 @@ public class ProductServiceTest {
     public void shouldFetchProductInformationOnValidRequestForPriceAndProduct() {
         when(productRepository.getProductDetails(anyString())).thenReturn(mockProductResponse());
         when(priceRepository.getPriceDetails(anyString())).thenReturn(mockPricingResponse());
-        ProductResponse productResponse = productService.getProductDetails("1234567");
-        assertNotNull(productResponse);
-        assertEquals(productResponse.getId(),"1234567");
-        assertEquals(productResponse.getName(),"Test Product Description");
-        assertNotNull(productResponse.getCurrent_price());
-        assertEquals(productResponse.getCurrent_price().getValue(),"12");
-        assertEquals(productResponse.getCurrent_price().getCurrency_code(),"USD");
+        Products products = productService.getProductDetails("1234567");
+        assertNotNull(products);
+        assertEquals(products.getId(),"1234567");
+        assertEquals(products.getName(),"Test Product Description");
+        assertNotNull(products.getCurrent_price());
+        assertEquals(products.getCurrent_price().getValue(),"12");
+        assertEquals(products.getCurrent_price().getCurrency_code(),"USD");
     }
 
     @Test
     public void shouldFetchOnlyProductInformationOnValidRequestForProductAndInvalidPrice() {
         when(productRepository.getProductDetails(anyString())).thenReturn(mockProductResponse());
-        ProductResponse productResponse = productService.getProductDetails("1234567");
-        assertNotNull(productResponse);
-        assertEquals(productResponse.getId(),"1234567");
-        assertEquals(productResponse.getName(),"Test Product Description");
-        assertNull(productResponse.getCurrent_price());
+        Products products = productService.getProductDetails("1234567");
+        assertNotNull(products);
+        assertEquals(products.getId(),"1234567");
+        assertEquals(products.getName(),"Test Product Description");
+        assertNull(products.getCurrent_price());
     }
 
     private PriceMapper mockPricingResponse() {
