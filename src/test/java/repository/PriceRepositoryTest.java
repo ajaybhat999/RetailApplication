@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import static org.mockito.Matchers.any;
 
 import com.datastax.driver.core.querybuilder.Select;
-import com.example.myretail.dto.PriceMapper;
+import com.example.myretail.model.PriceMapper;
 import com.example.myretail.repository.PriceRepositoryImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,9 +37,9 @@ public class PriceRepositoryTest {
                 .thenReturn(priceMapper);
         PriceMapper resultPriceMapper = priceRepository.getPriceDetails("1234567");
         assertNotNull(resultPriceMapper);
-        assertEquals(resultPriceMapper.getPrice(),"12");
-        assertEquals(resultPriceMapper.getCurrency(),"USD");
-        assertEquals(resultPriceMapper.getProductid(),"1234567");
+        assertEquals("12",resultPriceMapper.getPrice());
+        assertEquals("USD",resultPriceMapper.getCurrency());
+        assertEquals("1234567",resultPriceMapper.getProductid());
     }
 
     @Test

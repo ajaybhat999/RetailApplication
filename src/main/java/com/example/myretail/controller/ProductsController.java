@@ -1,8 +1,8 @@
 package com.example.myretail.controller;
 
-import com.example.myretail.model.Product;
-import com.example.myretail.model.Products;
-import com.example.myretail.service.ProductService;
+import com.example.myretail.entity.Product;
+import com.example.myretail.dto.Products;
+import com.example.myretail.service.ProductOrchestratorService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,26 +24,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductsController {
 
     @Autowired
-    ProductService productService;
+    ProductOrchestratorService productOrchestratorService;
 
     @GetMapping("/{productId}")
     public ResponseEntity<Product> getProductDetails(@PathVariable(value = "productId") String productId) {
         log.debug("Inside Product controller: getProduct()");
-        Products products = productService.getProductDetails(productId);
+        Products products = productOrchestratorService.getProductDetails(productId);
         return new ResponseEntity(products, HttpStatus.OK);
     }
 
     @PutMapping()
     public ResponseEntity updateProductDetails(@RequestBody Products productRequest){
         log.debug("Inside Product Controller: update product()");
-        productService.updateProductPrice(productRequest);
+        productOrchestratorService.updateProductPrice(productRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity createProductDetails(@RequestBody Products productRequest){
         log.debug("Inside Product Controller: create product price()");
-        productService.createProductPrice(productRequest);
+        productOrchestratorService.createProductPrice(productRequest);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

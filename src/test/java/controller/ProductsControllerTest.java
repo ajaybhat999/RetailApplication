@@ -6,9 +6,9 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
 import com.example.myretail.controller.ProductsController;
-import com.example.myretail.model.Price;
-import com.example.myretail.model.Products;
-import com.example.myretail.service.ProductService;
+import com.example.myretail.entity.Price;
+import com.example.myretail.dto.Products;
+import com.example.myretail.service.ProductOrchestratorService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,13 +30,13 @@ public class ProductsControllerTest {
     ProductsController productsController;
 
     @Mock
-    private ProductService productService;
+    private ProductOrchestratorService productOrchestratorService;
 
 
     @Test
     public void shouldGetListOfProductPricesOnValidProductId() {
         Products productList = getMockProductResponse();
-        when(productService.getProductDetails(anyString())).thenReturn(productList);
+        when(productOrchestratorService.getProductDetails(anyString())).thenReturn(productList);
         ResponseEntity responseEntity = productsController.getProductDetails("1234567");
         assertNotNull(responseEntity);
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
